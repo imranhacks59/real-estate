@@ -11,6 +11,8 @@ const HouseContextProvider = ({children}) => {
     const [property,setProperty] = useState('Property type (any)');
     const [properties,setProperties] = useState([])
     const [price,setPrice] = useState('Price range (any)')
+    console.log(price+"prices")
+    
     const [loading,setLoading] = useState(false)
     
     useEffect(()=>{
@@ -42,14 +44,14 @@ const HouseContextProvider = ({children}) => {
       }
       // console.log(isDefault(country))
       // get first value and parse it to number
-      const minPrice = parseInt(price.split(' ')[0]);
+      const minPrice = parseInt(price.split('-')[0]);
       console.log(minPrice+"min")
       //get dsecond value of price which is maxm price and parse it to  number
-      const maxPrice=parseInt(price.split(' ')[2]);
+      const maxPrice=parseInt(price.split('-')[1]);
       console.log(maxPrice+"max")
       const newHouses=housesData.filter((house)=>{
         const housePrice=(parseInt(house.price))
-        console.log(housePrice)
+        // console.log(housePrice+"house")
         // if all values are selected
         if(
           house.country===country &&
@@ -73,7 +75,7 @@ const HouseContextProvider = ({children}) => {
           return house.type===property
         }
          // if price is not default
-         if(isDefault(price)&&isDefault(property)&& !isDefault(country)){
+         if(!isDefault(price)&&isDefault(property)&& isDefault(country)){
           if(housePrice>=minPrice && housePrice<=maxPrice){
             return house
             
